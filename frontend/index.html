@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JobTrackr</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>JobTrackr</h1>
+  
+  <form id="jobForm">
+    <input type="text" id="company" placeholder="Company Name" required />
+    <input type="text" id="position" placeholder="Position" required />
+    <select id="status">
+      <option value="Applied">Applied</option>
+      <option value="Interview">Interview</option>
+      <option value="Rejected">Rejected</option>
+      <option value="Offer">Offer</option>
+    </select>
+    <button type="submit">Add Job</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Company</th>
+        <th>Position</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="jobList">
+    </tbody>
+  </table>
+
+  <script src="script.js"></script>
+</body>
+</html>
