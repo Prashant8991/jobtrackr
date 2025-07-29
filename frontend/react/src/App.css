@@ -1,0 +1,19 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.job-form input {
+  margin: 10px;
+  padding: 8px;
+}
+
+.job-form button {
+  padding: 8px 12px;
+}
+
+.job-list {
+  list-style-type: none;
+  padding: 0;
+}
