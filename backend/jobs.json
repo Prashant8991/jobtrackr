@@ -1,1 +1,57 @@
-[]
+[
+  {
+    "id": "1722528000001",
+    "title": "Frontend Developer",
+    "company": "Google",
+    "location": "Mountain View, CA (Hybrid)",
+    "salary": "$140,000 - $165,000",
+    "status": "Interview",
+    "dateApplied": "2026-07-15",
+    "notes": "Completed Technical Screening. Round 2 System Design on Aug 5th.",
+    "url": "https://careers.google.com"
+  },
+  {
+    "id": "1722528000002",
+    "title": "Full Stack Engineer",
+    "company": "Stripe",
+    "location": "San Francisco, CA (Remote)",
+    "salary": "$150,000 - $180,000",
+    "status": "Offer",
+    "dateApplied": "2026-07-10",
+    "notes": "Received offer letter! Negotiating base salary.",
+    "url": "https://stripe.com/jobs"
+  },
+  {
+    "id": "1722528000003",
+    "title": "Software Engineer",
+    "company": "Microsoft",
+    "location": "Redmond, WA",
+    "salary": "$135,000 - $160,000",
+    "status": "Applied",
+    "dateApplied": "2026-07-22",
+    "notes": "Applied via referral from Alex.",
+    "url": "https://careers.microsoft.com"
+  },
+  {
+    "id": "1722528000004",
+    "title": "Backend API Developer",
+    "company": "Amazon",
+    "location": "Seattle, WA",
+    "salary": "$145,000",
+    "status": "Rejected",
+    "dateApplied": "2026-06-30",
+    "notes": "Position filled internally.",
+    "url": "https://amazon.jobs"
+  },
+  {
+    "id": "1722528000005",
+    "title": "React UI Architect",
+    "company": "Vercel",
+    "location": "Remote",
+    "salary": "$160,000 - $190,000",
+    "status": "Applied",
+    "dateApplied": "2026-07-28",
+    "notes": "Submitted custom portfolio project link.",
+    "url": "https://vercel.com/careers"
+  }
+]

@@ -1,35 +1,232 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>JobTrackr</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobTrackr | Modern Job Application Tracker</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>JobTrackr</h1>
-  
-  <form id="jobForm">
-    <input type="text" id="company" placeholder="Company Name" required />
-    <input type="text" id="position" placeholder="Position" required />
-    <select id="status">
-      <option value="Applied">Applied</option>
-      <option value="Interview">Interview</option>
-      <option value="Rejected">Rejected</option>
-      <option value="Offer">Offer</option>
-    </select>
-    <button type="submit">Add Job</button>
-  </form>
+  <div class="app-container">
+    
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="logo-icon">
+          <i class="fa-solid fa-briefcase"></i>
+        </div>
+        <div class="brand-text">
+          <h1>JobTrackr</h1>
+          <p>Organize, track, and land your dream job</p>
+        </div>
+      </div>
+      
+      <div class="header-actions">
+        <button class="btn btn-primary" id="openAddModalBtn">
+          <i class="fa-solid fa-plus"></i>
+          <span>Add Application</span>
+        </button>
+      </div>
+    </header>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Company</th>
-        <th>Position</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody id="jobList">
-    </tbody>
-  </table>
+    <!-- Stats Grid -->
+    <section class="stats-grid">
+      <div class="stat-card total" id="statTotalCard">
+        <div class="stat-icon"><i class="fa-solid fa-layer-group"></i></div>
+        <div class="stat-info">
+          <span class="stat-label">Total Applied</span>
+          <h2 class="stat-value" id="statTotal">0</h2>
+        </div>
+      </div>
+
+      <div class="stat-card applied" id="statAppliedCard">
+        <div class="stat-icon"><i class="fa-solid fa-paper-plane"></i></div>
+        <div class="stat-info">
+          <span class="stat-label">Applied</span>
+          <h2 class="stat-value" id="statApplied">0</h2>
+        </div>
+      </div>
+
+      <div class="stat-card interview" id="statInterviewCard">
+        <div class="stat-icon"><i class="fa-solid fa-user-tie"></i></div>
+        <div class="stat-info">
+          <span class="stat-label">Interviewing</span>
+          <h2 class="stat-value" id="statInterview">0</h2>
+        </div>
+      </div>
+
+      <div class="stat-card offer" id="statOfferCard">
+        <div class="stat-icon"><i class="fa-solid fa-trophy"></i></div>
+        <div class="stat-info">
+          <span class="stat-label">Offers</span>
+          <h2 class="stat-value" id="statOffer">0</h2>
+        </div>
+      </div>
+
+      <div class="stat-card rejected" id="statRejectedCard">
+        <div class="stat-icon"><i class="fa-solid fa-xmark"></i></div>
+        <div class="stat-info">
+          <span class="stat-label">Rejected</span>
+          <h2 class="stat-value" id="statRejected">0</h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- Controls & Toolbar -->
+    <section class="toolbar">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="Search by company, position, or location..." />
+      </div>
+
+      <div class="filter-pills" id="filterPills">
+        <button class="pill active" data-status="All">All</button>
+        <button class="pill" data-status="Applied">Applied</button>
+        <button class="pill" data-status="Interview">Interview</button>
+        <button class="pill" data-status="Offer">Offer</button>
+        <button class="pill" data-status="Rejected">Rejected</button>
+      </div>
+
+      <div class="toolbar-right">
+        <div class="sort-box">
+          <label for="sortSelect"><i class="fa-solid fa-sort"></i> Sort:</label>
+          <select id="sortSelect">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="company">Company (A-Z)</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Area: Job List -->
+    <main class="content-section">
+      <div class="table-container">
+        <table class="job-table">
+          <thead>
+            <tr>
+              <th>Company & Role</th>
+              <th>Location</th>
+              <th>Salary</th>
+              <th>Status</th>
+              <th>Date Applied</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="jobList">
+            <!-- Dynamic jobs inserted here -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state hidden" id="emptyState">
+        <div class="empty-icon"><i class="fa-solid fa-folder-open"></i></div>
+        <h3>No Applications Found</h3>
+        <p>Start tracking your applications or adjust your search filter.</p>
+        <button class="btn btn-secondary" id="emptyStateAddBtn">
+          <i class="fa-solid fa-plus"></i> Add New Job
+        </button>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Add / Edit Job Modal -->
+  <div class="modal-backdrop hidden" id="jobModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle">Add Job Application</h3>
+        <button class="close-btn" id="closeModalBtn">&times;</button>
+      </div>
+
+      <form id="jobForm">
+        <input type="hidden" id="jobId" />
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="company">Company Name *</label>
+            <input type="text" id="company" placeholder="e.g. Google" required />
+          </div>
+
+          <div class="form-group">
+            <label for="title">Position Title *</label>
+            <input type="text" id="title" placeholder="e.g. Senior Frontend Developer" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" id="location" placeholder="e.g. Remote / New York, NY" />
+          </div>
+
+          <div class="form-group">
+            <label for="salary">Salary Range</label>
+            <input type="text" id="salary" placeholder="e.g. $120,000 - $140,000" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="status">Application Status</label>
+            <select id="status">
+              <option value="Applied">Applied</option>
+              <option value="Interview">Interview</option>
+              <option value="Offer">Offer</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="url">Job Posting URL</label>
+            <input type="url" id="url" placeholder="https://company.com/careers/job-123" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Notes / Follow-up Details</label>
+          <textarea id="notes" rows="3" placeholder="Interviewer contact, application notes, key specs..."></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="cancelModalBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveJobBtn">
+            <i class="fa-solid fa-check"></i> Save Application
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="modal-backdrop hidden" id="deleteModal">
+    <div class="modal-card modal-sm">
+      <div class="modal-header">
+        <h3>Confirm Deletion</h3>
+        <button class="close-btn" id="closeDeleteModalBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this job application? This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="cancelDeleteBtn">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
 
   <script src="script.js"></script>
 </body>
